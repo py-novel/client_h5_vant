@@ -1,24 +1,5 @@
-# client_h5_vant
+# CLIENT_H5_VANT
 
-## Project setup
-```
-npm install
-```
+Vant + Vue + Vue-router 实现 `公羊阅读` h5 客户端。
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Vant 是有赞团队开源的移动端 ui 库，包含丰富的组件。[文档](https://youzan.github.io/vant/#/zh-CN/intro)
