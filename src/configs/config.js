@@ -1,0 +1,1 @@
+export const apiPrefix = 'http://localhost:4000/api/v3'
