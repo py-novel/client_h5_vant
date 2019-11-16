@@ -22,7 +22,7 @@
 
 <script>
 import request from '@/utils/request'
-import { SHELF_GET, OAUTH_SIGNIN_H5 } from '@/configs/api'
+import { SHELF_GET, OAUTH_SIGNIN_H5, OAUTH_TOKEN_GET } from '@/configs/api'
 import Novel from '@/components/Novel'
 import Navbar from '@/components/Navbar'
 import { Button } from 'vant'
@@ -41,19 +41,24 @@ export default {
     },
     async mounted () {
         const userId = localStorage.getItem('userId')
-        // this.queryShelfList()
 
         if (userId) {
             this.userId = userId
+            const token = localStorage.getItem('token')
+            if (!token) {
+                const result = await request({ url: OAUTH_TOKEN_GET, method: 'GET', params: { userId } })
+                if (result.code === '0000') localStorage.setItem('token', result.data.token)
+            }
         } else {
             // 生成随机数作为 username
             const username = Math.random().toString(17).substr(2)
             // 请求 userId 和 token
             const result = await request({ url: OAUTH_SIGNIN_H5, method: 'POST', data: { username } })
-            if (!result) return
-            this.userId = result.data.userId
-            localStorage.setItem('userId', result.data.userId)
-            localStorage.setItem('token', result.data.token)
+            if (result.code === '0000') {
+                this.userId = result.data.userId
+                localStorage.setItem('userId', result.data.userId)
+                localStorage.setItem('token', result.data.token)
+            }
         }
 
         this.queryShelfList()
@@ -89,6 +94,7 @@ export default {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
+    align-content: flex-start;
     padding: 20px 20px 50px;
     height: calc(100vh - 50px);
     overflow: auto;

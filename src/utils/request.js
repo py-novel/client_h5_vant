@@ -1,6 +1,7 @@
 import axios from 'axios'
 import NProgress from 'nprogress'
 import qs from 'qs'
+import { Toast } from 'vant'
 import { apiPrefix } from '../configs/config'
 
 const instance = axios.create({
@@ -33,7 +34,7 @@ function handleSucc(response, opt) {
     console.log(`【${opt.method} ${opt.url}】请求成功，响应数据：%o`, response)
 
     if (response.data.code !== '0000') {  // 打印业务错误提示
-        console.log(response.data.message)
+        Toast(response.data.message)
     }
 
     return { ...response.data }
