@@ -8,6 +8,7 @@
 
 <script>
 export default {
+    name: 'Novel',
     props: ['bookName', 'authorName'],
     methods: {
         clickNovel () {

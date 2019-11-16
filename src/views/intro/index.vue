@@ -57,7 +57,6 @@ export default {
     mounted() {
         const { novelUrl } = this.$route.params;
         this.queryNovelDetail(novelUrl);
-        // this.queryChapterList(novelUrl)
     },
     methods: {
         async queryNovelDetail(url) {
@@ -69,14 +68,6 @@ export default {
             this.detail = result.data;
         },
 
-        async queryChapterList(url) {
-            const result = await request({
-                url: NOVEL_CHAPTER_GET,
-                params: { url }
-            });
-            if (result.code !== "0000") return;
-        },
-        
         async joinShelf () {
             if (!this.detail.bookName) return
             const userId = localStorage.getItem('userId')

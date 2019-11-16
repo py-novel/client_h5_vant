@@ -37,13 +37,6 @@ const routes = [
     }
   },
   {
-    name: 'oauth',
-    component: () => import('./views/oauth'),
-    meta: {
-      title: '公羊阅读'
-    }
-  },
-  {
     name: 'search',
     component: () => import('./views/search'),
     meta: {
