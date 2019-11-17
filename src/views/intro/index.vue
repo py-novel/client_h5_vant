@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import { NOVEL_INTRO_GET, NOVEL_CHAPTER_GET, SHELF_ADD } from "@/configs/api"
+import { NOVEL_INTRO_GET, SHELF_ADD } from "@/configs/api"
 import request from "@/utils/request"
 import { Skeleton, Loading } from 'vant'
 

@@ -71,8 +71,8 @@ export default {
             this.novelList = result.data
         },
 
-        goReadPage (novelId, url, bookName) {
-            this.$router.push({ name: 'read', params: { novelId, url, bookName } })
+        goReadPage (shelfId, url, bookName) {
+            this.$router.push({ name: 'read', params: { shelfId, url, bookName } })
         },
 
         goClassifyPage () {
@@ -95,7 +95,7 @@ export default {
     flex-wrap: wrap;
     justify-content: flex-start;
     align-content: flex-start;
-    padding: 20px 20px 50px;
+    padding: 0 20px 50px;
     height: calc(100vh - 50px);
     overflow: auto;
 }
