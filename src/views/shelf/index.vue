@@ -1,6 +1,12 @@
 <template>
     <div>
-        <h2 class="nav-title">书架</h2>
+        <div class="shelf-header">
+            <h2 class="nav-title">书架</h2>
+            <div class="edit-wrap" @click="isEdit = !isEdit">
+                <van-icon name="edit" />
+            </div>
+        </div>
+        
 
         <div class="novel-empty" v-if="novelList.length === 0">
             <img class="novel-empty-pic" src="../../assets/images/empty.png" alt="empty">
@@ -11,7 +17,9 @@
             <Novel v-for="novel in novelList"
                 class="novel-item"
                 @click="goReadPage(novel.id, novel.recent_chapter_url, novel.book_name)"
+                @close="delShelf(novel.id)"
                 :key="novel.id"
+                :isEdit="isEdit"
                 :bookName="novel.book_name"
                 :authorName="novel.author_name"/>  
         </div>
@@ -22,21 +30,23 @@
 
 <script>
 import request from '@/utils/request'
-import { SHELF_GET, OAUTH_SIGNIN_H5, OAUTH_TOKEN_GET } from '@/configs/api'
+import { SHELF_GET, OAUTH_SIGNIN_H5, OAUTH_TOKEN_GET, SHELF_DEL } from '@/configs/api'
 import Novel from '@/components/Novel'
 import Navbar from '@/components/Navbar'
-import { Button } from 'vant'
+import { Button, Icon } from 'vant'
 
 export default {
     components: {
         Novel,
         Navbar,
         [Button.name]: Button,
+        [Icon.name]: Icon,
     },
     data () {
         return {
             userId: 12,
             novelList: [],
+            isEdit: false,
         }
     },
     async mounted () {
@@ -71,6 +81,13 @@ export default {
             this.novelList = result.data
         },
 
+        async delShelf (id) {
+            const result = await request({ url: SHELF_DEL, method: 'DELETE', data: { id } })
+            if (result.code !== '0000') return
+            this.$toast('操作成功')
+            this.queryShelfList()
+        },
+
         goReadPage (shelfId, url, bookName) {
             this.$router.push({ name: 'read', params: { shelfId, url, bookName } })
         },
@@ -83,12 +100,28 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.nav-title {
+.shelf-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
     font-size: 18px;
-    font-weight: 500;
-    margin-top: 16px;
-    padding-left: 50px;
+
+    .nav-title {
+        font-size: 18px;
+        font-weight: 500;
+        margin-top: 16px;
+    }
+
+    .edit-wrap {
+        height: 100%;
+        width: 30px;
+        display: flex;
+        align-items: center;
+    }
 }
+
 .novel-list {
     display: flex;
     flex-direction: row;
