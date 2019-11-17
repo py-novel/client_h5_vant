@@ -12,3 +12,10 @@ $ cd client_h5_vant
 $ npm install
 $ npm run serve
 ```
+
+### server
+
+只启动该工程进入页面是没有数据的，还需要启动对应的服务端应用。
+
+[公羊阅读服务端：server_node_express](https://github.com/py-novel/server_node_express)
+
